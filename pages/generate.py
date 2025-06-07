@@ -8,7 +8,7 @@ st.title("✍️ AI Content Generator")
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-options = ["Blog", "Caption", "Email", "Content Ideas"]
+options = ["Blog", "Caption", "Email", "Content Ideas","Video Scripts"]
 choice = st.selectbox("Choose what you want to generate:", options)
 
 prompt = st.text_area("Enter your topic or idea")
