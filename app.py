@@ -1,55 +1,74 @@
 import streamlit as st
 import utils
-from PIL import Image
 
-st.set_page_config(page_title="AI Content Generator", page_icon="✨", layout="wide")
+# Set page config
+st.set_page_config(page_title="AI Content Generator", page_icon="✨", layout="centered")
 
-# --- Custom CSS for improved visual design ---
+# Dark-mode-compatible custom CSS
 st.markdown("""
     <style>
-    body {
-        background-color: #f0f2f6;
+    html, body, [class*="css"]  {
+        color: #E1E1E1 !important;
+        background-color: #0E1117 !important;
     }
-    .block-container {
-        padding: 2rem;
-        background-color: #ffffff;
-        border-radius: 1rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-    .stTextInput > div > input {
-        padding: 0.5rem;
+
+    .stTextInput input {
+        background-color: #262730;
+        color: #E1E1E1;
+        border: 1px solid #565656;
         border-radius: 0.5rem;
-        border: 1px solid #d1d5db;
+        padding: 0.5rem;
     }
-    .stButton > button {
+
+    .stSelectbox div[data-baseweb="select"] > div {
+        background-color: #262730;
+        color: #E1E1E1;
+        border-radius: 0.5rem;
+    }
+
+    .stButton>button {
         background-color: #4f46e5;
         color: white;
-        font-weight: bold;
+        font-weight: 600;
         border-radius: 8px;
-        padding: 0.6rem 1.2rem;
+        padding: 0.5rem 1.2rem;
         border: none;
         transition: background 0.3s ease;
     }
-    .stButton > button:hover {
+
+    .stButton>button:hover {
         background-color: #3730a3;
+    }
+
+    .block {
+        background-color: #1E1F25;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        margin-bottom: 2rem;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# --- App UI ---
+# UI content
 st.markdown("## ✨ Welcome to AI Content Generator")
 st.write("Create engaging **blogs**, **emails**, and **captions** effortlessly with the power of AI.")
 
 with st.container():
-    st.subheader("👤 Enter Your Details")
-    username = st.text_input("Enter your Username")
-    email = st.text_input("Enter your Email")
-    role = st.selectbox("What best describes you?", ["Student", "Marketer", "Content Creator", "Business Owner", "Other"])
+    st.markdown("### 👤 Enter Your Details")
+    with st.container():
+        st.markdown('<div class="block">', unsafe_allow_html=True)
 
-    if st.button("🚀 Submit"):
-        if username and email:
-            utils.store_user_info(username, email, role)
-            st.success("✅ Your info has been saved!")
-        else:
-            st.warning("⚠️ Please enter both Username and Email.")
+        username = st.text_input("Enter your Username")
+        email = st.text_input("Enter your Email")
+        role = st.selectbox("What best describes you?", ["Student", "Marketer", "Content Creator", "Business Owner", "Other"])
+
+        if st.button("🚀 Submit"):
+            if username and email:
+                utils.store_user_info(username, email, role)
+                st.success("✅ Your info has been saved!")
+            else:
+                st.warning("⚠️ Please enter both Username and Email.")
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
