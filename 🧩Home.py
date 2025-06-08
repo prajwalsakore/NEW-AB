@@ -145,9 +145,9 @@ elif page == "ℹ️ About":
     - **Session State for user login**
 
     ### 🎓 Created By:
-    - **Prajwal Sakore**
-    - Final Year, B.Tech (Your College)
-    - For academic project submission
+    - **Prajwal Sakore** and *Aviraj Kohinkar**
+    - Final Year, Msc Computer Application students (MIT ACSC Alandi)
+    
 
     ### 💡 Purpose:
     Help creators and marketers save time by generating high-quality content instantly using AI.
