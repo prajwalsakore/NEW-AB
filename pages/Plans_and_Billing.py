@@ -14,11 +14,11 @@ if menu == "Plan Details":
     st.warning("**Premium Plan** – ₹599/month (Pro + Image + SEO tools)")
 
 elif menu == "Billing":
-    st.subheader("💳 Dummy Payment Portal")
+    st.subheader("💳 Payment Portal")
     st.text_input("Name on Card")
     st.text_input("Card Number")
     st.text_input("Expiry Date")
     st.text_input("CVV")
     st.selectbox("Payment Gateway", ["Razorpay", "Paytm", "PhonePe", "Google Pay"])
     if st.button("Make Payment"):
-        st.success("✅ Payment Successful! (This is a dummy demo for college project.)")
+        st.success("✅ Payment Successful! ")
