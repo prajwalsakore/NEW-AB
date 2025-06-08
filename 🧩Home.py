@@ -145,7 +145,7 @@ elif page == "ℹ️ About":
     - **Session State for user login**
 
     ### 🎓 Created By:
-    - **Prajwal Sakore** and *Aviraj Kohinkar**
+    - **Prajwal Sakore and Aviraj Kohinkar** 
     - Final Year, Msc Computer Application students (MIT ACSC Alandi)
     
 
