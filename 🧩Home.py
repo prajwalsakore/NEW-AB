@@ -3,38 +3,6 @@
 import streamlit as st
 import utils
 
-# At the top (after imports), initialize session_state
-if "user_info_submitted" not in st.session_state:
-    st.session_state.user_info_submitted = False
-
-if "user_name" not in st.session_state:
-    st.session_state.user_name = ""
-
-if "user_role" not in st.session_state:
-    st.session_state.user_role = ""
-
-# Inside your "User Info" page or "Home" section
-if not st.session_state.user_info_submitted:
-    st.title("👤 User Info")
-    st.markdown("Please fill in your details to proceed:")
-
-    full_name = st.text_input("Full Name")
-    email = st.text_input("Email")
-    role = st.selectbox("Select Your Role", ["Marketer", "Student", "Content Creator"])
-
-    if st.button("Submit"):
-        if full_name and email:
-            st.session_state.user_info_submitted = True
-            st.session_state.user_name = full_name
-            st.session_state.user_role = role
-        else:
-            st.warning("Please enter all fields.")
-else:
-    st.success(f"👋 Welcome, {st.session_state.user_name} ({st.session_state.user_role})")
-    st.markdown("### 🎯 Here’s your personalized dashboard:")
-    st.markdown("- 🔥 Go to Generate tab to create content.")
-    st.markdown("- 💡 Visit Content Ideas to get fresh topics.")
-    st.markdown("- 🧾 Manage your subscription in Billing.")
 
 
 # Set page config
