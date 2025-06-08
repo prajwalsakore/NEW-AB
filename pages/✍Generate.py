@@ -1,11 +1,6 @@
 import streamlit as st
 import openai
 
-
-
-# --- Page Title ---
-st.title("✍️ AI Content Generator")
-
 # --- Page Setup ---
 st.set_page_config(page_title="Generate Content", layout="wide")
 st.title("✍️ AI Content Generator")
