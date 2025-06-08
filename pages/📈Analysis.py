@@ -67,10 +67,11 @@ Interaction Level: {interaction_level}
         result = response.choices[0].message.content
 
         # ✅ Output in Card
-        st.markdown("### 🧠 AI Prediction Result")
+              st.markdown("### 🧠 AI Prediction Result")
         st.markdown(f"""
         <div class='block'>
             <h4>📈 Prediction Summary:</h4>
-            <p style="font-size:1.1rem;">{result}</p>
+            <div style="font-size:1.1rem;">{result}</div>
         </div>
         """, unsafe_allow_html=True)
+
