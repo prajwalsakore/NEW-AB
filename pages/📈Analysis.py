@@ -1,9 +1,11 @@
 import streamlit as st
 import openai
 
-# Set page config
-st.set_page_config(page_title="Lead Conversion Classifier", layout="wide")
+# 🧠 Setup
+st.set_page_config(page_title="Lead Predictor", layout="wide")
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
+# ✅ Dark-mode compatible styling
 st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] > .main {
@@ -20,7 +22,10 @@ st.markdown("""
         margin-bottom: 2rem;
     }
 
-    .stTextInput>div>input, .stTextArea>div>textarea, .stNumberInput>div>input, .stSelectbox>div>div {
+    .stTextInput>div>input,
+    .stTextArea>div>textarea,
+    .stNumberInput>div>input,
+    .stSelectbox>div>div {
         background-color: #2d2d2d;
         color: #ffffff;
         border: 1px solid #555;
@@ -43,75 +48,55 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
- 
-# ✅ Set OpenAI Key
-openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# ✅ Custom Page Background (optional)
-st.markdown("""
-    <style>
-    [data-testid="stAppViewContainer"] > .main {
-        background: linear-gradient(to bottom right, #fefcea, #f1da36);
-        padding: 2rem;
-    }
-    .block {
-        background-color: #ffffff;
-        padding: 1.5rem;
-        border-radius: 1rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        margin-bottom: 2rem;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# 🧾 Title
+st.title("📊 Lead Conversion Predictor")
+st.write("Fill in lead details to predict if they'll convert into a customer.")
 
-# ✅ UI
-st.title("🔍 Lead Conversion Classifier")
-st.write("Predict whether a lead is likely to convert into a customer based on their information.")
+# 🧾 Input Fields
+with st.container():
+    st.markdown("<div class='block'>", unsafe_allow_html=True)
 
-st.markdown("### 🧾 Enter Lead Details")
-
-with st.form("lead_form"):
     name = st.text_input("Name of Lead")
-    age = st.number_input("Age", 18, 100, 25)
-    location = st.text_input("Location")
-    budget = st.text_input("Approx. Budget / Spending Potential (INR)")
-    product_interest = st.text_area("Product/Service of Interest")
-    urgency = st.selectbox("Urgency Level", ["Very Urgent", "Somewhat Interested", "Just Exploring"])
-    interaction_level = st.selectbox("Interaction So Far", ["Multiple Calls/Meetings", "One Demo Given", "Only One Call", "None"])
-    
-    submitted = st.form_submit_button("🚀 Predict Conversion")
+    age = st.number_input("Age", min_value=18, max_value=100, value=25)
+    interest = st.selectbox("Interest Level", ["High", "Medium", "Low"])
+    budget = st.selectbox("Budget Range", ["<10K", "10K-50K", "50K-1L", "1L+"])
+    channel = st.selectbox("Source Channel", ["Instagram", "Facebook", "Google Ads", "Referral", "Walk-In"])
+    contact_count = st.slider("How many times you contacted?", 0, 10, 1)
+    time_taken = st.slider("Response time (in hours)", 0, 72, 24)
 
-if submitted:
-    with st.spinner("Predicting using AI..."):
-        prompt = f"""
-You are a business assistant. Based on the following lead data, classify the chance of conversion into 3 categories: 
-1. High chance ✅ 
-2. Medium chance ⚠️ 
-3. Low chance ❌ 
-Also, briefly explain why.
+    st.markdown("</div>", unsafe_allow_html=True)
 
-Name: {name}
-Age: {age}
-Location: {location}
-Budget: {budget}
-Interest: {product_interest}
-Urgency: {urgency}
-Interaction Level: {interaction_level}
-"""
-        response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=200
-        )
+# 🧠 AI Prediction
+if st.button("Predict Lead Outcome 🚀"):
+    if name:
+        with st.spinner("Analyzing with AI..."):
+            prompt = (
+                f"Based on the following lead data, tell whether the lead is likely to convert into a customer and give a short reason:\n\n"
+                f"Name: {name}\n"
+                f"Age: {age}\n"
+                f"Interest Level: {interest}\n"
+                f"Budget: {budget}\n"
+                f"Source: {channel}\n"
+                f"Times Contacted: {contact_count}\n"
+                f"Response Delay: {time_taken} hours"
+            )
 
-        result = response.choices[0].message.content
+            response = openai.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=300
+            )
+            result = response.choices[0].message.content
 
-        # ✅ Output in Card
-              st.markdown("### 🧠 AI Prediction Result")
-        st.markdown(f"""
-        <div class='block'>
-            <h4>📈 Prediction Summary:</h4>
-            <div style="font-size:1.1rem;">{result}</div>
-        </div>
-        """, unsafe_allow_html=True)
+            st.markdown("### 🧠 Prediction Result")
+            st.markdown(f"""
+            <div class='block'>
+                <h4>📈 Prediction Summary:</h4>
+                <div style="font-size:1.1rem;">{result}</div>
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.warning("Please enter the lead name.")
+
 
