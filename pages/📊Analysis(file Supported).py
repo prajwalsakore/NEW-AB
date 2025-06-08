@@ -62,6 +62,19 @@ if uploaded_file:
     )
 
     st.dataframe(styled_df, use_container_width=True)
+    # -- CSV Download --
+import io
+csv_buffer = io.StringIO()
+df.to_csv(csv_buffer, index=False)
+csv_data = csv_buffer.getvalue()
+
+st.download_button(
+    label="📥 Download Predictions as CSV",
+    data=csv_data,
+    file_name="lead_predictions.csv",
+    mime="text/csv"
+)
+
 else:
     st.info("Upload a CSV with columns like: First Name, Last Name, Email, Interest, City, Phone, Source.")
 
