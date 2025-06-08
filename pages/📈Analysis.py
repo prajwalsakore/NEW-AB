@@ -5,7 +5,7 @@ import openai
 st.set_page_config(page_title="Lead Predictor", layout="wide")
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# ✅ Dark-mode compatible styling
+# Dark-mode compatible CSS for selectbox and other inputs
 st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] > .main {
@@ -25,12 +25,16 @@ st.markdown("""
     .stTextInput>div>input,
     .stTextArea>div>textarea,
     .stNumberInput>div>input,
-    .stSelectbox>div>div {
-        background-color: #2d2d2d;
-        color: #ffffff;
-        border: 1px solid #555;
+    .stSlider,
+    .stSelectbox div[data-baseweb="select"] > div {
+        background-color: #2d2d2d !important;
+        color: #ffffff !important;
         border-radius: 10px;
-        padding: 0.6rem;
+        border: 1px solid #555 !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] span {
+        color: #ffffff !important;
     }
 
     .stButton>button {
