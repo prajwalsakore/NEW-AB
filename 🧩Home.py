@@ -96,7 +96,7 @@ if page == "🏠 Home":
         st.markdown("### 🎯 Your Personalized Dashboard")
         st.markdown("- 🔥 Ready to generate content")
         st.markdown("- 💡 Explore fresh content ideas")
-        st.markdown("- 🧾 Manage your subscription (Billing page coming soon)")
+        st.markdown("- 🧾 Manage your Billing and subscription")
 
 # --- Generate Page ---
 elif page == "🛠️ Generate":
