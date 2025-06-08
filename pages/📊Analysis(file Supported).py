@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import io
 
 # ---------- PAGE CONFIG ----------
 st.set_page_config(page_title="Lead Conversion Predictor", layout="wide")
@@ -28,7 +29,7 @@ uploaded_file = st.file_uploader("📂 Upload your lead CSV file", type=["csv"])
 if uploaded_file:
     df = pd.read_csv(uploaded_file)
 
-    # Rename columns if needed
+    # Rename columns if needed (adjust columns based on input CSV)
     expected_cols = ['First Name', 'Last Name', 'Email', 'Interest', 'City', 'Phone', 'Source']
     df.columns = expected_cols[:len(df.columns)]
 
@@ -62,29 +63,20 @@ if uploaded_file:
     )
 
     st.dataframe(styled_df, use_container_width=True)
+
     # -- CSV Download --
-import io
-csv_buffer = io.StringIO()
-df.to_csv(csv_buffer, index=False)
-csv_data = csv_buffer.getvalue()
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False)
+    csv_data = csv_buffer.getvalue()
 
-st.download_button(
-import io
-
-# Save the original DataFrame (not styled) as CSV
-csv = io.StringIO()
-df.to_csv(csv, index=False)
-csv_bytes = csv.getvalue()
-
-# Download button
-st.download_button(
-    label="📥 Download Predictions as CSV",
-    data=csv_bytes,
-    file_name="lead_predictions.csv",
-    mime="text/csv"
-)
-
+    st.download_button(
+        label="📥 Download Predictions as CSV",
+        data=csv_data,
+        file_name="lead_predictions.csv",
+        mime="text/csv"
+    )
 
 else:
     st.info("Upload a CSV with columns like: First Name, Last Name, Email, Interest, City, Phone, Source.")
+
 
