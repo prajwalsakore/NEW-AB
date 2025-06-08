@@ -21,6 +21,9 @@ Here is how the app is structured:
 3. **Content Ideas** – Suggests blog, email, or caption ideas based on user input.
 4. **Plans and Billing** – Displays available subscription plans (Basic ₹0, Pro ₹199, Premium ₹499) and includes a dummy billing system.
 5. **User Info** – Displays stored user data such as name, email, and selected plan.
+6. **SEO Score Checker** - Check SEO score of blog which user provided.
+7. **Analysis** - Takes information of leads from user and give prediction based on inputs.
+8. **Analysis(file Supported)** - Analyze csv file provided from user and give prediction.
 
 If the user asks where to perform an action, always guide them by referring to the tab names above.
 """
