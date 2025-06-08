@@ -4,6 +4,46 @@ import openai
 # Set page config
 st.set_page_config(page_title="Lead Conversion Classifier", layout="wide")
 
+st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] > .main {
+        background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+        padding: 2rem;
+    }
+
+    .block {
+        background-color: #1e1e1e;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        color: #f1f1f1;
+        margin-bottom: 2rem;
+    }
+
+    .stTextInput>div>input, .stTextArea>div>textarea, .stNumberInput>div>input, .stSelectbox>div>div {
+        background-color: #2d2d2d;
+        color: #ffffff;
+        border: 1px solid #555;
+        border-radius: 10px;
+        padding: 0.6rem;
+    }
+
+    .stButton>button {
+        background-color: #4f46e5;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        border: none;
+        transition: background 0.3s ease;
+    }
+
+    .stButton>button:hover {
+        background-color: #3730a3;
+    }
+    </style>
+""", unsafe_allow_html=True)
+ 
 # ✅ Set OpenAI Key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
