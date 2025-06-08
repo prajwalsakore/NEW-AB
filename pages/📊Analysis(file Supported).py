@@ -69,11 +69,21 @@ df.to_csv(csv_buffer, index=False)
 csv_data = csv_buffer.getvalue()
 
 st.download_button(
+import io
+
+# Save the original DataFrame (not styled) as CSV
+csv = io.StringIO()
+df.to_csv(csv, index=False)
+csv_bytes = csv.getvalue()
+
+# Download button
+st.download_button(
     label="📥 Download Predictions as CSV",
-    data=csv_data,
+    data=csv_bytes,
     file_name="lead_predictions.csv",
     mime="text/csv"
 )
+
 
 else:
     st.info("Upload a CSV with columns like: First Name, Last Name, Email, Interest, City, Phone, Source.")
