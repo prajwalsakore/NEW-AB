@@ -2,22 +2,6 @@ import streamlit as st
 import openai
 
 
-# ✅ First Streamlit command!
-st.set_page_config(page_title="Generate Content", layout="wide")
-
-# ✅ Now inject background CSS
-page_bg_img = """
-<style>
-[data-testid="stAppViewContainer"] > .main {
-    background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
-    background-size: cover;
-}
-[data-testid="stHeader"] {
-    background-color: rgba(0,0,0,0);
-}
-</style>
-"""
-st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # --- Page Title ---
 st.title("✍️ AI Content Generator")
