@@ -3,6 +3,20 @@ import openai
 
 # --- Page Setup ---
 st.set_page_config(page_title="Generate Content", layout="wide")
+# Custom Page Background
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"] > .main {
+background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
+background-size: cover;
+}
+[data-testid="stHeader"] {
+    background-color: rgba(0,0,0,0);
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+##
 st.title("✍️ AI Content Generator")
 
 # --- OpenAI Key ---
