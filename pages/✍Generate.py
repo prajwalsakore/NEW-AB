@@ -2,10 +2,10 @@ import streamlit as st
 import openai
 
 
-# --- Page Configuration ---
+# 🚨 This MUST be the first Streamlit command!
 st.set_page_config(page_title="Generate Content", layout="wide")
 
-# --- 🌈 Custom Page Background ---
+# 🌈 Custom Page Background (after set_page_config)
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] > .main {
