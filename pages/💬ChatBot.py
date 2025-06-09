@@ -2,16 +2,15 @@ import streamlit as st
 import openai
 import os
 
-# Set your OpenAI API key securely (use Streamlit secrets in production)
+# Set your OpenAI API key (use st.secrets in deployment)
 openai.api_key = os.getenv("OPENAI_API_KEY") or "your-api-key-here"
 
-# Set Streamlit page config
-st.set_page_config(page_title="📞 AI Chatbot Assistant", layout="centered")
-
+# Set page config
+st.set_page_config(page_title="AI Chatbot", layout="centered")
 st.title("🤖 Smart Chatbot Assistant")
-st.write("Ask anything about how to use the app!")
+st.write("Ask anything about the app!")
 
-# System prompt defining how the bot should behave
+# Updated system prompt for accurate answers
 system_prompt = """
 You are a friendly and intelligent assistant inside a web app that helps users with digital content generation, SEO scoring, and lead prediction.
 
@@ -31,15 +30,9 @@ Here’s how the app works:
 7. "Plans and Billing" shows available plans (Basic, Pro, Premium) and dummy payment options.
 
 Always give answers based only on this app's layout and features. Never mention sections like "Content Creation" or "Blog Tool" that don't exist.
-
-Example:  
-If a user asks “Where can I generate a blog?”, reply:  
-👉 “You can generate blogs by going to the **Generate** section of the app.”
-
-Be brief, clear, and specific to this app.
 """
 
-# Session state to hold chat history
+# Maintain chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
@@ -49,28 +42,33 @@ user_input = st.text_input("💬 Ask something about the app:", key="chat_input"
 if user_input:
     with st.spinner("Generating response..."):
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    *st.session_state.chat_history,
-                    {"role": "user", "content": user_input}
-                ]
-            )
-            bot_reply = response.choices[0].message["content"]
+            from openai import OpenAI
 
-            # Update chat history
+            client = OpenAI(api_key=openai.api_key)
+
+            messages = [{"role": "system", "content": system_prompt}] + st.session_state.chat_history + [
+                {"role": "user", "content": user_input}
+            ]
+
+            response = client.chat.completions.create(
+                model="gpt-4",
+                messages=messages
+            )
+
+            bot_reply = response.choices[0].message.content
+
+            # Save chat
             st.session_state.chat_history.append({"role": "user", "content": user_input})
             st.session_state.chat_history.append({"role": "assistant", "content": bot_reply})
 
         except Exception as e:
             bot_reply = f"❌ Error: {str(e)}"
 
-    # Display bot response
+    # Show response
     st.markdown("**🧠 Assistant:**")
     st.info(bot_reply)
 
-# Display chat history (optional)
+# Optional: Show chat history
 if st.session_state.chat_history:
     st.markdown("---")
     st.subheader("🕘 Chat History")
@@ -79,4 +77,5 @@ if st.session_state.chat_history:
             st.markdown(f"**You:** {msg['content']}")
         else:
             st.markdown(f"**Bot:** {msg['content']}")
+
 
